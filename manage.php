@@ -30,7 +30,7 @@
  $PAGE->set_context(\context_system::instance());
  $PAGE->set_title(get_string('manage_messages', 'local_message'));
 
- $messages = $DB->get_records('local_message');
+ $messages = $DB->get_records('local_message', null, 'id');
 
  echo $OUTPUT->header();
 

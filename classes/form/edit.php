@@ -21,7 +21,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// moodleform is defined in formslib.php
+namespace local_message\form;
+use moodleform;
 require_once("$CFG->libdir/formslib.php");
 
 class edit extends moodleform {
@@ -30,6 +31,10 @@ class edit extends moodleform {
         // A reference to the form is stored in $this->form.
         // A common convention is to store it in a variable, such as `$mform`.
         $mform = $this->_form; // Don't forget the underscore!
+
+        $mform->addElement('hidden', 'id');
+        $mform->setType('id', PARAM_INT);
+
         // Add elements to your form.
         $mform->addElement('text', 'messagetext', get_string('message_text', 'local_message'));
         // Set type of element.

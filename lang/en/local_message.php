@@ -17,7 +17,7 @@
 /**
  * Strings for component 'assign', language 'en'
  *
- * @package   mod_assign
+ * @package   local_message
  * @copyright 2012 NetSpot {@link http://www.netspot.com.au}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,3 +28,4 @@ $string['message_text'] = 'Message text';
 $string['cancelled_form'] = 'You cancelled the message form';
 $string['created_form'] = 'You created a message with title ';
 $string['manage_messages'] = 'Manage messages';
+$string['updated_form'] = 'You updated a message with title ';
