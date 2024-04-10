@@ -29,3 +29,5 @@ $string['cancelled_form'] = 'You cancelled the message form';
 $string['created_form'] = 'You created a message with title ';
 $string['manage_messages'] = 'Manage messages';
 $string['updated_form'] = 'You updated a message with title ';
+$string['delete_message'] = 'Delete message ';
+$string['delete_message_confirm'] = 'Are you sure you want to delete message? ';
