@@ -40,7 +40,28 @@ define(['jquery', 'core/modal_factory', 'core/str', 'core/modal_events', 'core/a
     }, trigger).done(function(modal){
         modal.getRoot().on(ModalEvents.save, function(e){
             e.preventDefault();
-            Y.log(modal.params);
+
+            let footer = Y.one('.modal-footer');
+            footer.setContent('Deleting...');
+            let spinner = M.util.add_spinner(Y, footer);
+            spinner.show();
+            let request = {
+                methodname: 'local_message_delete_message',
+                args: modal.params,
+            };
+
+            Ajax.call([request])[0].done(function(data) {
+                if (data === true) {
+                    //redirect to manage page.
+                    window.location.reload();
+                }else{
+                    Notification.addNotification({
+                        message: String.get_string('delete_message_failed', 'local_message'),
+                        type: 'error',
+                    });
+                }
+            }).fail(Notification.exception); 
+
         });
     });
 });
