@@ -21,65 +21,51 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @var stdClass $plugin
  */
-
-use local_message\form\edit;
+use local_message\form\bulkedit;
 use local_message\manager;
 
 require_once(__DIR__ . '/../../config.php');
 
+require_login();
 $context = context_system::instance();
 require_capability('local/message:managemessages', $context);
 
 global $DB;
 
-$PAGE->set_url(new moodle_url('/local/message/edit.php'));
+$PAGE->set_url(new moodle_url('/local/message/bulkedit.php'));
 $PAGE->set_context(\context_system::instance());
-$PAGE->set_title('Edit');
+$PAGE->set_title(get_string('bulk_edit', 'local_message'));
+$PAGE->set_heading(get_string('bulk_edit_messages', 'local_message'));
 
 $messageid = optional_param('messageid', null, PARAM_INT);
 
 //We want to display our form
-$mform = new edit();
+$mform = new bulkedit();
+$manager = new manager();
 
 // Form processing and displaying is done here.
 if ($mform->is_cancelled()) {
     //Go to back to manage.php page
     redirect($CFG->wwwroot . '/local/message/manage.php', get_string('cancelled_form', 'local_message'));
 } else if ($fromform = $mform->get_data()) {
-    
-    $manager = new manager();
-
-    if($fromform->id){
-        //We are updating an existing message.
-        $manager->update_message($fromform->id, $fromform->messagetext, $fromform->messagetype);
-        redirect($CFG->wwwroot . '/local/message/manage.php', get_string('updated_form', 'local_message') . $fromform->messagetext);
+    $messages = $fromform->messages;
+    $messageids = [];
+    foreach ($messages as $key => $enabled) {
+        if($enabled == true){
+            $messageids[] = substr($key, 9);
+        }
     }
 
-    $manager->create_message($fromform->messagetext, $fromform->messagetype);
-
-    //Insert the data into our database table.
-    $recordtoinsert = new stdClass();
-    $recordtoinsert->messagetext = $fromform->messagetext;
-    $recordtoinsert->messagetype = $fromform->messagetype;
-
-    //Go to back to manage.php page
-    redirect($CFG->wwwroot . '/local/message/manage.php', get_string('created_form', 'local_message') . $fromform->messagetext);
-}
-
-if ($messageid){
-    //Add extra data to the form.
-    global $DB;
-    $manager = new manager();
-    $message = $manager->get_message($messageid);
-
-    if(!$message){
-        throw new invalid_parameter_exception('Message not found');
+    if($messageids){
+        if($fromform->deleteall == true){
+            $manager->delete_messages($messageids);
+        } else {
+            $manager->update_messages($messageids, $fromform->messagetype);
+        }
     }
-    $mform->set_data($message);
+    redirect($CFG->wwwroot . '/local/message/manage.php', get_string('bulk_edit_successful', 'local_message'));
 }
 
 echo $OUTPUT->header();
-
 $mform->display();
-
 echo $OUTPUT->footer();

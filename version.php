@@ -25,6 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_message';
-$plugin->version   = 2020061503;
+$plugin->version   = 2020061505;
 $plugin->requires  = 2020060900;
 

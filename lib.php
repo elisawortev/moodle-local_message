@@ -27,6 +27,10 @@ use local_message\manager;
 function local_message_before_footer() {
     
     global $DB, $USER;
+    
+    if(!get_config('local_message', 'enabled')){
+        return;
+    }
 
     $manager = new manager();
     $messages = $manager->get_messages($USER->id);
@@ -43,6 +47,5 @@ function local_message_before_footer() {
         \core\notification::add($message->messagetext, $type);
 
         $manager->mark_message_read($message->id, $USER->id);
-
     }
 }

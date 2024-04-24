@@ -22,12 +22,24 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pluginname'] = 'Broadcasat messages';
+$string['manage'] = 'Manage broadcasat messages';
+$string['setting_enable'] = 'Enable';
+$string['setting_enable_desc'] = 'Disable to stop any messages from this plugin being displayed';
 $string['enter_message'] = 'Please enter a message';
 $string['message_type'] = 'Message type';
 $string['message_text'] = 'Message text';
+$string['message:managemessages'] = 'Manage messages';
 $string['cancelled_form'] = 'You cancelled the message form';
 $string['created_form'] = 'You created a message with title ';
 $string['manage_messages'] = 'Manage messages';
 $string['updated_form'] = 'You updated a message with title ';
 $string['delete_message'] = 'Delete message ';
 $string['delete_message_confirm'] = 'Are you sure you want to delete message? ';
+$string['whattodo'] = 'What do you want to do with your selected messages?';
+$string['choose_messages'] = 'Choose your messages';
+$string['delete_all_selected'] = 'Delete all selected?';
+$string['bulk_edit'] = 'Bulk Edit';
+$string['bulk_edit_messages'] = 'Bulk edit your messages';
+$string['bulk_edit_successful'] = 'Bulk edit successful!';
+
